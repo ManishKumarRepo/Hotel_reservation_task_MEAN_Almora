@@ -36,7 +36,7 @@ router.post('/authenticate',function(req,res){
 		if(!user){
 			return res.json({success:false,msg:'User not Found'});
 		}
-       
+
 		if(user.validPassword(password)){
 			const token=jwt.sign({data:user},config.secret);
 			res.json({success:true ,
@@ -57,7 +57,10 @@ router.post('/authenticate',function(req,res){
 
 //Profile
 router.get('/profile',function(req,res){
-	res.json({user:req.user});
+	if(req.isAuthenticated()){
+		res.json({user:req.user});
+	}
+	res.json({user:null});
 });
 
 //Validate

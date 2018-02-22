@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     if(this.authService.loggedIn()){
-      console.log(this.authService.user);
+      this.authService.storage=null;
     }
   	this.authService.getHotels().subscribe(data=>{
       this.hotels=data.hotel;

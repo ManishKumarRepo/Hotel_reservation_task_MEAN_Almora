@@ -10,6 +10,13 @@ const async=require('async');
 
 router.use(passport.authenticate('jwt',{session:false}));
 
+router.get('/profile',function(req,res){
+	if(req.isAuthenticated()){
+		res.json({user:req.user});
+	}
+	res.json({user:null});
+});
+
 
 router.get('/current/user',function(req,res){
   if(req.isAuthenticated()){
