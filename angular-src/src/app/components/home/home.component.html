@@ -1,0 +1,60 @@
+<br/><br/>
+<div *ngIf="!authService.loggedIn()">
+  <div class="col-sm-6">
+  <table class="table table-hover table-light">
+
+  <thead>
+    <tr><legend>Default UserName and Passwords</legend></tr>
+    <tr>
+      <th scope="col">UserName (Admin)</th>
+      <th scope="col">admin@email.com</th>
+</tr>
+      <tr>
+        <th scope="col">Password</th>
+        <th scope="col">admin</th>
+
+      </tr>
+      <tr>
+        <th scope="col">UserName (User)</th>
+        <th scope="col">user@email.com</th>
+
+      </tr>
+      <tr>
+        <th scope="col">Password</th>
+        <th scope="col">user</th>
+
+      </tr>
+
+  </thead>
+
+</table>
+</div>
+</div>
+
+<br/><br/><br/><br/>
+<div class="row">
+
+    <table class="table table-hover table-light">
+
+    <thead>
+      <tr><legend>Hotels</legend></tr>
+      <tr>
+        <th scope="col">Hotel Name</th>
+        <th scope="col">City</th>
+        <th scope="col">Rooms Available</th>
+        <th scope="col">Tariff (per Room)</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let hotel of hotels">
+        <th scope="row">{{hotel.name}}</th>
+        <td>{{hotel.city}}</td>
+        <td>{{hotel.roomCount}}</td>
+        <td>{{hotel.tariff}}</td>
+        <td><a *ngIf="authService.loggedIn() ; else booktemplate " class="nav-link" [routerLink]="['/book/hotel',hotel._id]">Check Room Availability</a></td>
+        <ng-template #booktemplate><a class="nav-link" [routerLink]="['/login']">LOGIN TO BOOK</a></ng-template>
+      </tr>
+    </tbody>
+  </table>
+</div>

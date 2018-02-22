@@ -1,0 +1,89 @@
+<br/> <br/>
+<div class="container">
+
+<div class ="row">
+
+     <div class="col-sm-4">
+       <h3><p class="text-success">Hotel Details</p></h3>
+    <div class="card mb-3">
+  <h3 class="card-header text-success">{{hotelname}}</h3>
+  <div class="card-body">
+    <h5 class="card-title">Address</h5>
+    <h6 class="card-subtitle text-muted">{{hotelAddress}}</h6>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"> Available Rooms:<strong>{{hotelRoom}}</strong></li>
+
+    <li class="list-group-item">Tariff (Per Room) :<strong>{{hoteltariff}}</strong></li>
+  </ul>
+
+
+</div>
+  </div>
+
+
+
+  <div class="col-sm-8" *ngIf="hotelRoom >= 1 ; else nobookingtemplate ">
+    <div class="container">
+       <h3><p class="text-info">Fill Booking Details</p></h3>
+      <form (submit)="onBookSubmit($event)">
+      <fieldset>
+        <div class="form-group">
+          <label for="address">From</label>
+          <input  #frombox class="form-control" id="address" placeholder="Address" type="date" [(ngModel)]="from" name="from" (change)="changeFrom(frombox.value)">
+        </div>
+        <div class="form-group">
+          <label for="city">To</label>
+          <input #tobox class="form-control" id="city" placeholder="City" type="date" [(ngModel)]="to" name="to" (change)="changeTo(tobox.value)">
+        </div>
+        <div class="form-group">
+          <label for="state">Select Number of Rooms</label>
+          <input #box class="form-control" id="state" placeholder="State" type="text" [(ngModel)]="numofrooms" name="numofrooms"  (keyup)="onKey(box.value)">
+
+        </div>
+        <div class="form-group">
+          <input #box class="form-control" type="hidden" [(ngModel)]="tariff" name="tariff" value="{{numofdays * hoteltariff * numofrooms}}">
+
+        </div>
+
+
+
+  <br/><br/>
+       <div *ngIf="from && to && numofrooms" class="card text-white bg-success mb-3" style="max-width: 20rem;">
+      <div class="card-header">Total tariff : {{numofdays * hoteltariff * numofrooms}}</div>
+      <div class="card-body">
+        <h4 class="card-title">Rooms Selected :{{numofrooms}}</h4>
+        <h4 class="card-title">Booked for: {{numofdays}} days</h4>
+
+        <p class="card-text">Date from: {{from}}</p>
+        <p class="card-text">Date to: {{to}}</p>
+      </div>
+    </div>
+
+    <button [disabled]="disable" type="submit" class="btn btn-primary btn-lg btn-block">CONFIRM BOOKING</button>
+
+
+      </fieldset>
+    </form>
+    </div>
+
+
+
+  </div>
+  <ng-template #nobookingtemplate>
+    <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+   <div class="card-header"><h3>Rooms Not Available</h3></div>
+   <div class="card-body">
+     <h4 class="card-title">Keeping looking for availability</h4>
+
+   </div>
+ </div>
+  </ng-template>
+
+
+
+
+</div>
+
+</div>

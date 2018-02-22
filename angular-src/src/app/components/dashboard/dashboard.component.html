@@ -1,0 +1,106 @@
+<br/>
+<div class="container">
+<h3><p class="text-info">MY PROFILE</p></h3>
+<div *ngIf="user ; else usertemplate">
+	<div class="row">
+	<div class="col-sm-12">
+		<div class="list-group">
+			<li class="list-group-item"><strong>Name : </strong>{{user.firstName+' '+user.lastName | uppercase}}</li>
+
+			<li class="list-group-item"><strong>Email : </strong>{{user.email}}</li>
+
+			<li class="list-group-item"><strong>Total Bookings : </strong>{{user.bookedHotel.length}}</li>
+
+			<li class="list-group-item"><strong>Admin Rights : </strong>{{user.isAdmin}}</li>
+
+		</div>
+	</div>
+</div>
+</div>
+
+<ng-template #usertemplate>
+	<div class="row">
+	<div class="col-sm-12">
+		<div class="list-group">
+			<li class="list-group-item"><strong>NO USER DETAIL FOUND</strong></li>
+
+
+		</div>
+	</div>
+</div>
+</ng-template>
+
+<br/><br/>
+
+<div class="container">
+
+
+			<div *ngIf="storage ; else previousbookingtemplate">
+
+				<div class="row">
+					<div class="col-sm-12">
+						<h3><p class="text-success">Booking Confirmed</p></h3>
+						<div class="list-group">
+							<li class="list-group-item"><strong>HotelName : </strong>{{storage.name | uppercase}}</li>
+
+							<li class="list-group-item"><strong>From : </strong>{{storage.data.checkInDate | date:'fullDate'}}</li>
+
+							<li class="list-group-item"><strong>To : </strong>{{storage.data.checkOutDate | date:'fullDate'}}</li>
+
+							<li class="list-group-item"><strong>Rooms Booked for Days : </strong>{{storage.data.numofdays}}</li>
+
+             	<li class="list-group-item"><strong>Rooms Booked : </strong>{{storage.data.numofrooms}}</li>
+
+
+							<li class="list-group-item"><strong>Amount Paid : </strong>{{storage.data.totalTariff}}</li>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
+</div>
+<br/><br/>
+<div class="container">
+<div class="row">
+
+<br/><br/>
+	<table class="table table-hover">
+
+		<thead>
+			<tr><h3><p class="text-info">My Bookings</p></h3></tr>
+			<tr>
+				<th scope="col">From</th>
+				<th scope="col">To</th>
+				<th scope="col">No. of Days</th>
+				<th scope="col">Rooms</th>
+				<th scope="col">Amount Paid</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody *ngIf="previousBookings.length > 0 ; else bookingtemplate">
+
+			<tr *ngFor="let hotel of previousBookings">
+				<th scope="row">{{hotel.checkInDate | date:'fullDate'}}</th>
+				<td>{{hotel.checkOutDate | date:'fullDate'}}</td>
+				<td>{{hotel.numofdays}}</td>
+				<td>{{hotel.numofrooms}}</td>
+				<td>{{hotel.totalTariff}}</td>
+				<td><button class="nav-link" (click)="cancelBooking(hotel._id)">CANCEL BOOKING</button></td>
+			</tr>
+		</tbody>
+		<ng-template #bookingtemplate>
+				<tbody><br/><br/><tr><h3><strong>NO PREVIOUS BOOKINGS</strong></h3></tr>
+					<br/><br/>
+				<button class="nav-link" [routerLink]="['/']">BOOK HOTEL NOW</button></tbody>
+		</ng-template>
+	</table>
+</div>
+
+
+</div>
+
+</div>

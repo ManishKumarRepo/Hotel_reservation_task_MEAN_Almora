@@ -1,0 +1,35 @@
+<div class="row">
+		<table class="table table-hover">
+
+		<thead>
+			<tr><legend>USERS</legend></tr>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Email</th>
+				<th scope="col">Bookings</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody *ngIf="allUsers.length > 0 ; else bookingtemplate">
+
+			<tr *ngFor="let user of allUsers">
+				<th scope="row">{{user.firstName+' '+user.lastName |uppercase}}</th>
+				<td>{{user.email}}</td>
+				<td>{{user.bookedHotel.length}}</td>
+				<td><button class="nav-link" [routerLink]="['/edituser',user._id]">GO TO BOOKINGS</button></td>
+				<td *ngIf="user.isAdmin ; else usertemplate"><button  class="nav-link disabled">This is Admin</button></td>
+				<ng-template #usertemplate>
+					<td>
+            <button class="nav-link" (click)="deleteUserClick(user._id)">DELETE USER</button>
+				</td>
+			</ng-template>
+
+			</tr>
+
+		</tbody>
+
+		<ng-template #bookingtemplate>
+				<tbody><br/><br/><tr><h3><strong>NO USERS</strong></h3></tr></tbody>
+		</ng-template>
+	</table>
+</div>

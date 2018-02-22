@@ -1,0 +1,67 @@
+<h3><p class="text-info">USER PROFILE</p></h3>
+
+<div *ngIf="userdetails ; else usertemplate">
+	<div class="row">
+	<div class="col-sm-12">
+		<div class="list-group">
+			<li class="list-group-item"><strong>Name : </strong>{{userdetails.firstName+' '+userdetails.lastName | uppercase}}</li>
+
+			<li class="list-group-item"><strong>Email : </strong>{{userdetails.email}}</li>
+
+			<li class="list-group-item"><strong>Total Bookings Done : </strong>{{userdetails.bookedHotel.length}}</li>
+
+
+
+			<a class="btn btn-primary btn-lg btn-block" (click)="deleteUserClick(userdetails._id)"><strong>DELETE USER</strong></a>
+
+		</div>
+	</div>
+</div>
+</div>
+
+<ng-template #usertemplate>
+	<div class="row">
+	<div class="col-sm-12">
+		<div class="list-group">
+			<li class="list-group-item"><strong>NO USER DETAIL FOUND</strong></li>
+
+
+		</div>
+	</div>
+</div>
+</ng-template>
+
+
+<br/><br/>
+<div class="row">
+		<table class="table table-hover">
+
+		<thead>
+	<tr><h3><p class="text-info">Bookings done by this User</p></h3></tr>
+			<tr>
+				<th scope="col">From</th>
+				<th scope="col">To</th>
+				<th scope="col">No. of Days</th>
+				<th scope="col">No. of Rooms Booked</th>
+				<th scope="col">Amount Paid</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody *ngIf="userbookings.length>0 ; else bookingtemplate">
+
+			<tr *ngFor="let hotel of userbookings">
+				<th scope="row">{{hotel.checkInDate | date:'fullDate'}}</th>
+				<td>{{hotel.checkOutDate | date:'fullDate'}}</td>
+				<td>{{hotel.numofdays}}</td>
+				<td>{{hotel.numofrooms}}</td>
+				<td>{{hotel.totalTariff}}</td>
+
+				<td><button class="nav-link" (click)="cancelBooking(hotel._id,userdetails._id)">DELETE BOOKING</button></td>
+			</tr>
+		</tbody>
+
+		<ng-template #bookingtemplate>
+				<tbody><br/><br/><tr><h3><strong>NO PREVIOUS BOOKINGS</strong></h3></tr></tbody>
+		</ng-template>
+	</table>
+</div>
